@@ -3,6 +3,7 @@ import Link from "next/link";
 import { subjectList, BUNDLE_PRICE, BUNDLE_ORIGINAL } from "@/lib/data";
 import { useApp } from "@/lib/store";
 import Price from "@/components/Price";
+import GirlHero from "@/components/GirlHero";
 
 const features = [
   { t: "สรุปสั้น อ่านจบในบทเดียว", d: "ตัดส่วนที่ไม่ออกสอบ เหลือเฉพาะประเด็นที่ต้องจำ อ่านบนมือถือได้สบาย" },
@@ -42,17 +43,8 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="space-y-3 rounded-2xl bg-white p-5 text-slate-800 shadow-xl dark:bg-night dark:text-slate-100">
-          {subjectList.map((s) => (
-            <div key={s.slug} className="rounded-xl border border-navy/10 p-4 dark:border-white/10">
-              <p className="mb-1 text-sm font-semibold text-slate-500">{s.title}</p>
-              <Price original={s.originalPrice} price={s.price} />
-            </div>
-          ))}
-          <div className="rounded-xl border-2 border-gold bg-gold/10 p-4">
-            <p className="mb-1 text-sm font-semibold text-slate-600 dark:text-slate-300">แพ็กคู่ ครบทั้งสองวิชา</p>
-            <Price original={BUNDLE_ORIGINAL} price={BUNDLE_PRICE} />
-          </div>
+        <div className="hidden justify-center lg:flex">
+          <GirlHero />
         </div>
       </section>
 
