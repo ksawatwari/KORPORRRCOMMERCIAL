@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { subjectList, BUNDLE_PRICE } from "@/lib/data";
+import { subjectList, BUNDLE_PRICE, BUNDLE_ORIGINAL } from "@/lib/data";
 import { useApp } from "@/lib/store";
+import Price from "@/components/Price";
 
 const features = [
   { t: "สรุปสั้น อ่านจบในบทเดียว", d: "ตัดส่วนที่ไม่ออกสอบ เหลือเฉพาะประเด็นที่ต้องจำ อ่านบนมือถือได้สบาย" },
@@ -20,7 +21,7 @@ const faqs = [
   { q: "ตัวอย่างเนื้อหาให้อ่านได้แค่ไหน?", a: "บทแรกของแต่ละวิชาเปิดให้ดูฟรีบางส่วน ส่วนที่เหลือจะปลดล็อกเมื่อซื้อวิชานั้น" },
   { q: "อ่านบนมือถือได้ไหม?", a: "ได้ ออกแบบให้อ่านบนมือถือและแท็บเล็ตเป็นหลัก และมีโหมดมืดสำหรับอ่านตอนกลางคืน" },
   { q: "เนื้อหากฎหมายเป็นฉบับล่าสุดหรือไม่?", a: "เราสรุปเพื่อเตรียมสอบ แต่กฎหมายแก้ไขได้เสมอ ควรเช็กตัวบทฉบับล่าสุดก่อนสอบอีกครั้ง" },
-  { q: "ซื้อทีละวิชาหรือแพ็กคู่ดีกว่า?", a: `ถ้าอ่านครบทั้งสองวิชา แพ็กคู่ ${BUNDLE_PRICE} บาท ถูกกว่าซื้อแยก ${99 * 2} บาท อยู่ ${99 * 2 - BUNDLE_PRICE} บาท` },
+  { q: "ซื้อทีละวิชาหรือแพ็กคู่ดีกว่า?", a: `ถ้าอ่านครบทั้งสองวิชา แพ็กคู่ ${BUNDLE_PRICE} บาท ถูกกว่าซื้อแยก 2 วิชา (${99 * 2} บาท) อยู่ ${99 * 2 - BUNDLE_PRICE} บาท` },
 ];
 
 export default function Landing() {
@@ -30,28 +31,28 @@ export default function Landing() {
       {/* Hero */}
       <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-12 lg:grid-cols-2">
         <div>
-          <p className="mb-3 inline-block rounded-full bg-white/10 px-3 py-1 text-sm">เตรียมสอบ ก.พ. ภาค ก</p>
+          <p className="mb-3 inline-block rounded-full bg-gold px-3 py-1 text-sm font-bold text-navy-deep">โปรโมชันราคาพิเศษ</p>
           <h1 className="text-3xl font-bold leading-tight sm:text-5xl">เลือกซื้อเฉพาะวิชา ที่คุณยังอ่านไม่ทัน</h1>
           <p className="mt-4 max-w-md text-white/80">
-            ภาษาอังกฤษและกฎหมาย สรุปเป็นภาษาคน มีเทคนิคจำ และข้อสอบที่อธิบายว่าทำไมถึงตอบข้อนี้ วิชาละ 99 บาท
+            ภาษาอังกฤษและกฎหมาย สรุปเป็นภาษาคน มีเทคนิคจำ และข้อสอบที่อธิบายว่าทำไมถึงตอบข้อนี้
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/#courses" className="btn-gold">ดูคอร์สทั้งหมด</Link>
+            <Link href="/#pricing" className="btn-gold">ดูราคาและโปรโมชัน</Link>
             <Link href="/preview/english" className="btn border border-white/30 hover:bg-white/10">อ่านตัวอย่างฟรี</Link>
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 text-slate-800 shadow-xl dark:bg-night dark:text-slate-100" aria-label="ตัวอย่างข้อสอบ">
-          <p className="mb-2 text-sm text-slate-500">ตัวอย่างข้อสอบ • Conversation</p>
-          <p className="en">A: Would you mind closing the window?<br />B: ______</p>
-          <ul className="en mt-3 space-y-2">
-            <li className="rounded-xl border border-navy/15 px-4 py-2 dark:border-white/15">A. Yes, I'd love to.</li>
-            <li className="rounded-xl border border-green-600 bg-green-50 px-4 py-2 text-green-900 dark:bg-green-900/30 dark:text-green-100">B. Not at all.</li>
-            <li className="rounded-xl border border-navy/15 px-4 py-2 dark:border-white/15">C. Yes, please do.</li>
-          </ul>
-          <p className="mt-3 rounded-xl bg-navy-soft p-3 text-sm text-navy-deep dark:bg-white/10 dark:text-slate-100">
-            <b>ทำไมตอบข้อ B:</b> mind แปลว่ารังเกียจ ถ้ายินดีให้ทำต้องตอบเชิงปฏิเสธ
-          </p>
+        <div className="space-y-3 rounded-2xl bg-white p-5 text-slate-800 shadow-xl dark:bg-night dark:text-slate-100">
+          {subjectList.map((s) => (
+            <div key={s.slug} className="rounded-xl border border-navy/10 p-4 dark:border-white/10">
+              <p className="mb-1 text-sm font-semibold text-slate-500">{s.title}</p>
+              <Price original={s.originalPrice} price={s.price} />
+            </div>
+          ))}
+          <div className="rounded-xl border-2 border-gold bg-gold/10 p-4">
+            <p className="mb-1 text-sm font-semibold text-slate-600 dark:text-slate-300">แพ็กคู่ ครบทั้งสองวิชา</p>
+            <Price original={BUNDLE_ORIGINAL} price={BUNDLE_PRICE} />
+          </div>
         </div>
       </section>
 
@@ -79,7 +80,7 @@ export default function Landing() {
               <ul className="mt-3 flex-1 space-y-1 text-sm text-slate-500 dark:text-slate-400">
                 {s.chapters.map((c) => <li key={c.id}>บทที่ {c.id}: {c.title}</li>)}
               </ul>
-              <p className="mt-5 text-2xl font-bold text-gold-deep dark:text-gold">{s.price}.-</p>
+              <div className="mt-5"><Price original={s.originalPrice} price={s.price} /></div>
               <div className="mt-3 grid grid-cols-2 gap-3">
                 <Link href={`/preview/${s.slug}`} className="btn-navy">ตัวอย่างเนื้อหา</Link>
                 {unlocked[s.slug] ? (
@@ -109,20 +110,21 @@ export default function Landing() {
 
       {/* Pricing */}
       <section id="pricing">
-        <h2 className="text-2xl font-bold text-navy sm:text-3xl dark:text-white">ราคา จ่ายครั้งเดียว</h2>
+        <h2 className="text-2xl font-bold text-navy sm:text-3xl dark:text-white">ราคาโปรโมชัน จ่ายครั้งเดียว</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {subjectList.map((s) => (
             <div key={s.slug} className="card flex flex-col">
               <h3 className="font-bold">{s.title}</h3>
-              <p className="my-3 text-4xl font-bold text-navy dark:text-white">{s.price}<span className="text-lg"> บาท</span></p>
+              <div className="my-3"><Price original={s.originalPrice} price={s.price} /></div>
               <p className="flex-1 text-sm text-slate-500 dark:text-slate-400">{s.chapters.length} บท พร้อมข้อสอบและเฉลย</p>
               <Link href={`/checkout/${s.slug}`} className="btn-navy mt-4">ซื้อวิชานี้</Link>
             </div>
           ))}
-          <div className="flex flex-col rounded-2xl border-2 border-gold bg-white p-5 dark:bg-navy-deep">
+          <div className="relative flex flex-col rounded-2xl border-2 border-gold bg-white p-5 dark:bg-navy-deep">
+            <span className="absolute -top-3 right-4 rounded-full bg-gold px-3 py-0.5 text-sm font-bold text-navy-deep">คุ้มที่สุด</span>
             <h3 className="font-bold">แพ็กคู่ ครบทั้งสองวิชา</h3>
-            <p className="my-3 text-4xl font-bold text-navy dark:text-white">{BUNDLE_PRICE}<span className="text-lg"> บาท</span></p>
-            <p className="flex-1 text-sm text-slate-500 dark:text-slate-400">ประหยัด {99 * 2 - BUNDLE_PRICE} บาทจากซื้อแยก</p>
+            <div className="my-3"><Price original={BUNDLE_ORIGINAL} price={BUNDLE_PRICE} /></div>
+            <p className="flex-1 text-sm text-slate-500 dark:text-slate-400">ถูกกว่าซื้อแยกอีก {99 * 2 - BUNDLE_PRICE} บาท</p>
             <Link href="/checkout/bundle" className="btn-gold mt-4">ซื้อแพ็กคู่</Link>
           </div>
         </div>
