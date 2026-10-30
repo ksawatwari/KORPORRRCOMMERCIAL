@@ -1,4 +1,5 @@
 export const BUNDLE_PRICE = 179;
+export const BUNDLE_ORIGINAL = 398;
 
 export const subjects = {
   english: {
@@ -6,6 +7,7 @@ export const subjects = {
     title: "วิชาภาษาอังกฤษ",
     short: "English",
     price: 99,
+    originalPrice: 199,
     blurb: "สำนวน ไวยากรณ์ คำศัพท์ และเทคนิคอ่านจับใจความ แบบสรุปสั้น เน้นที่ออกสอบจริง",
     chapters: [
       {
@@ -63,6 +65,7 @@ export const subjects = {
     title: "วิชากฎหมาย",
     short: "Law",
     price: 99,
+    originalPrice: 199,
     blurb: "กฎหมายที่ต้องรู้สำหรับสอบ ก.พ. สรุปเป็นภาษาคน พร้อมเทคนิคจำ",
     chapters: [
       {
