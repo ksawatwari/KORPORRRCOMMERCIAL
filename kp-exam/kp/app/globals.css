@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply font-th bg-paper text-slate-800 antialiased; }
+  html.dark { @apply bg-night text-slate-200; }
+  :focus-visible { outline: 2px solid #F5A524; outline-offset: 2px; }
+}
+@layer components {
+  .en { @apply font-en text-[1.05rem] leading-8; }
+  .card { @apply rounded-2xl border border-navy/10 bg-white p-5 dark:border-white/10 dark:bg-navy-deep; }
+  .btn { @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold transition active:scale-[.98]; }
+  .btn-gold { @apply btn bg-gold text-navy-deep hover:bg-gold-deep hover:text-white; }
+  .btn-navy { @apply btn bg-navy text-white hover:bg-navy-deep dark:bg-white/10 dark:hover:bg-white/20; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
