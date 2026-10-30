@@ -15,3 +15,7 @@
   .btn-navy { @apply btn bg-navy text-white hover:bg-navy-deep dark:bg-white/10 dark:hover:bg-white/20; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
